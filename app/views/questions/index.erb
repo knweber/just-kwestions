@@ -1,0 +1,9 @@
+<h1>HamQuiz2000</h1>
+
+<% @questions.each do |question| %>
+  <div>
+    <a href="/questions/<%= question.id %>">
+      <%= question.prompt %>
+    </a>
+  </div>
+<% end %>
