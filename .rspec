@@ -1,1 +1,2 @@
---format documentation --color 
+--format documentation --color
+--require spec_helper.rb
