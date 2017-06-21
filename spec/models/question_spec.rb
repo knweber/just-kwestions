@@ -13,7 +13,7 @@ describe Question do
       end
 
       it 'raises an error on save' do
-        expect{no_prompt.save!}.to raise_error
+        expect{no_prompt.save!}.to raise_error(ActiveRecord::RecordInvalid)
       end
     end
   end
