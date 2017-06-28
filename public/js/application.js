@@ -6,6 +6,8 @@ $(document).ready(function() {
       method: 'GET',
     });
 
-    // request.done();
+    request.done(function(response) {
+      $('#ham-holder').append(response);
+    });
   });
 });
