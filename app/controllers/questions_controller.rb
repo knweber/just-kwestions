@@ -20,6 +20,7 @@ post '/questions' do
   if question.valid?
     redirect '/questions'
   else
+    status 422
     erb :'questions/new', locals: { errors: question.errors.full_messages }
   end
 end
