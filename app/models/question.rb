@@ -1,5 +1,8 @@
 class Question < ActiveRecord::Base
-  belongs_to :user
-  validates :prompt, presence: true
+  validates :text, presence: true
   validates :user_id, presence: true
+
+  belongs_to :user
+  has_many :answers
+  has_many :comments, as: :commentable
 end
