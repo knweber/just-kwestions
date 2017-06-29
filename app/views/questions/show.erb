@@ -1,0 +1,31 @@
+<h2> <%= @question.text %> </h2>
+<p>
+  Question Author: <%= @question.user.username %>
+</p>
+Question Comments:
+<% @question_comments.each do |comment|  %>
+  <p>
+    <%= comment.text %>
+  </p>
+  <p>
+    Question Comment Author: <%= comment.user.username %>
+  </p>
+<% end %>
+Answers:
+<% @answers.each do |answer| %>
+  <p>
+    <%= answer.text %>
+  </p>
+  <p>
+    Answer Author: <%= answer.user.username %>
+  </p>
+  Answer Comments:
+    <% answer.comments.each do |comment| %>
+      <p>
+        <%= comment.text %>
+      </p>
+      <p>
+        Answer Comment Author: <%= comment.user.username %>
+      </p>
+    <% end %>
+<% end %>
