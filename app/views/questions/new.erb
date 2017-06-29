@@ -1,3 +1,11 @@
+<% if defined? errors %>
+  <% errors.each do |error| %>
+    <div>
+      <%= error %>
+    </div>
+  <% end %>
+<% end %>
+
 <form id='question-form' action='/questions' method='POST'>
   <label for='prompt'>Ask a Kwestion:</label>
   <input id='prompt' name='question[prompt]' type='text' />
