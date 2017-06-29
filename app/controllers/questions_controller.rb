@@ -4,5 +4,7 @@ get '/questions' do
 end
 
 get '/questions/:id' do
-  "You clicked question #{params[:id]}"
+  @question = Question.find(params[:id])
+  @answers = @question.answers
+  erb :'questions/show'
 end
