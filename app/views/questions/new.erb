@@ -1,0 +1,13 @@
+<% if defined? errors %>
+  <% errors.each do |error| %>
+    <div>
+      <%= error %>
+    </div>
+  <% end %>
+<% end %>
+
+<form id='question-form' action='/questions' method='POST'>
+  <label for='text'>Ask a Kwestion:</label>
+  <input id='text' name='question[text]' type='text' />
+  <input type='submit' value='kwest!!' />
+</form>
