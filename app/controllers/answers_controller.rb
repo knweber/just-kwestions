@@ -1,5 +1,7 @@
 post '/questions/:question_id/answers' do
-  answer = Answer.create(text: params[:text], question_id: params[:question_id], user_id: User.all.sample.id)
+  answer_params = params[:answer]
+  answer_params[:user_id] = User.all.sample.id
+  answer = Answer.create(answer_params)
   if answer.valid?
     redirect "/questions/#{params[:question_id]}"
   else

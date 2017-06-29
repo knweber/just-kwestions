@@ -21,8 +21,8 @@ Question Comments:
   <% end %>
 <% end %>
 <form action='/questions/<%= @question.id %>/answers' method="POST" class="new-answer-form">
-  <textarea name='text' placeholder='Add an Answer'></textarea>
-  <input type='hidden' name='question_id' value='<%= @question.id %>'>
+  <textarea name='answer[text]' placeholder='Add an Answer'></textarea>
+  <input type='hidden' name='answer[question_id]' value='<%= @question.id %>'>
   <input type='submit' name='submit' value='Post Answer' />
 </form>
 
