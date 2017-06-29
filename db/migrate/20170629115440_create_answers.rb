@@ -6,5 +6,6 @@ class CreateAnswers < ActiveRecord::Migration
       t.string  :user_id, null:false
 
       t.timestamps
+    end
   end
 end

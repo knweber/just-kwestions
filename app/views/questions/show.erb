@@ -1,1 +1,6 @@
 <h2> <%= @question.prompt %> </h2>
+<% @answers.each do |answer| %>
+  <p>
+    <%= answer.answer %>
+  </p>
+<% end %>
