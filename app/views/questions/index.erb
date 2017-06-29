@@ -1,0 +1,5 @@
+<% @questions.each do |question| %>
+  <p>
+    <a href="/questions/<%= question.id %>"><%= question.prompt %></a>
+  </p>
+<% end %>
