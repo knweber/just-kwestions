@@ -8,12 +8,12 @@ describe 'question show page' do
   let!(:answer) { Answer.create(text: "You're a wizard, Harry.", user_id: user2.id, question_id: question.id) }
 
   it 'shows the question prompt' do
-    get '/questions/1'
+    get "/questions/#{question.id}"
     expect(last_response.body).to include('why you fail')
   end
 
   it 'shows the answer' do
-    get '/questions/1'
+    get "/questions/#{question.id}"
     expect(last_response.body).to include('wizard, Harry')
   end
 
