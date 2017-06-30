@@ -22,13 +22,13 @@ describe "Comment Controller" do
     end
 
     it 'should redirect to /questions/:question_id if valid question is given' do
-      post "/questions", {"text"=>"comment"}
+      post "/questions/1/comments", {"text"=>"comment"}
       expect(last_response.location).to include("/questions/1")
     end
 
     it 'will create a comment in the database if a valid comment is given' do
        comment_count = question.comments.all.count
-       post "/questions/1/comments", {"text"=>"comment"}
+       post "/questions/#{question.id}/comments", {"text"=>"comment"}
        expect(question.comments.all.count).to eq (comment_count + 1)
      end
 
