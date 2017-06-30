@@ -9,6 +9,7 @@ post '/questions/:question_id/comments' do
   if comment.valid?
     redirect "/questions/#{question.id}"
   else
+    status 422
     erb :'comments/new', locals: { action: "questions/#{params[:question_id]}/comments", errors: comment.errors.full_messages }
   end
 end
