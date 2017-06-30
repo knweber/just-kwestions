@@ -6,7 +6,7 @@ end
 post '/users' do
 
   @user = User.new(params[:user])
-    if !params[:user][:password].valid?
+    if params[:user][:password].empty? || params[:user][:password].length < 8
       return erb :'/users/new', locals: { errors: ["Must provide password of at least 8 characters."] }
     end
 

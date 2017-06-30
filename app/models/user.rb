@@ -5,8 +5,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }, uniqueness: true
-  # will this catch/throw an error at the registration level? \/
-  validates :password_hash, presence: true, length: { minimum: 8 }
+  validates :password_hash, presence: true
 
   has_many :questions
 
