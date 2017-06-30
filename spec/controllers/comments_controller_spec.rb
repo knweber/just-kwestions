@@ -9,21 +9,21 @@ describe "Comment Controller" do
     end
 
     it 'should display a form' do
-      get "/questions/1/comments/new"
+      get "/questions/#{question.id}/comments/new"
       expect(last_response.body).to include('<form id=\'comment-form\'')
     end
   end
 
   context 'post /questions/:question_id/comments route' do
-    let!(:user){ User.create(username: "testuser") }
+    let!(:user){ FactoryGirl.create(:user) }
     it 'should redirect if valid comment is given' do
-      post "/questions/1/comments", {"text"=>"comment"}
+      post "/questions/#{question.id}/comments", {"text"=>"comment"}
       expect(last_response.status).to eq(302)
     end
 
     it 'should redirect to /questions/:question_id if valid question is given' do
-      post "/questions/1/comments", {"text"=>"comment"}
-      expect(last_response.location).to include("/questions/1")
+      post "/questions/#{question.id}/comments", {"text"=>"comment"}
+      expect(last_response.location).to include("/questions/#{question.id}")
     end
 
     it 'will create a comment in the database if a valid comment is given' do
@@ -33,12 +33,12 @@ describe "Comment Controller" do
      end
 
     it 'should 422 if an invalid comment is given' do
-      post "/questions/1/comments", {"text"=>""}
+      post "/questions/#{question.id}/comments", {"text"=>""}
       expect(last_response.status).to eq(422)
     end
 
     it 'should include the error message' do
-      post "/questions/1/comments", {"text"=>""}
+      post "/questions/#{question.id}/comments", {"text"=>""}
       expect(last_response.body).to include("Text can't be blank")
     end
   end

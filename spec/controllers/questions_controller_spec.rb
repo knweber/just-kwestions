@@ -32,7 +32,7 @@ describe "Question Controller" do
   end
 
   context 'post /questions route' do
-    let!(:user){ User.create(username: "testuser") }
+    let!(:user){ User.create(username: "testuser", email: "test@gmail.com", password: "12345678") }
     it 'should redirect if valid question is given' do
       post "/questions", {"question"=>{"text"=>question.text}}
       expect(last_response.status).to eq(302)
