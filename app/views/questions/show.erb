@@ -36,7 +36,7 @@ Answers:
 
   Answer Comments:
   <div>
-    <a href='/questions/<%= @question.id %>/answers/comments/new'>Add a comment</a>
+    <a href='/questions/<%= @question.id %>/answers/<%= answer.id %>/comments/new'>Add a comment</a>
   </div>
     <% answer.comments.each do |comment| %>
       <p>
