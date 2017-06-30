@@ -1,3 +1,8 @@
+get '/questions/:question_id/answers/new' do
+  @question = Question.find(params[:question_id])
+  erb :'answers/new'
+end
+
 post '/questions/:question_id/answers' do
   answer_params = params[:answer]
   answer_params[:user_id] = User.all.sample.id
@@ -7,8 +12,6 @@ post '/questions/:question_id/answers' do
   else
     status 422
     @question = Question.find(params[:question_id])
-    @answers = @question.answers
-    @question_comments = @question.comments
-    erb :'questions/show', locals: { errors: answer.errors.full_messages }
+    erb :'answers/new', locals: { errors: answer.errors.full_messages }
   end
 end
