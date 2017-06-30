@@ -39,7 +39,7 @@ describe "Votes Controller" do
      end
   end
 
-  context 'delete /questions/:question_id/votes/ham route' do
+  context 'delete /questions/:question_id/votes/:id route' do
     it 'should redirect if question is downvoted' do
       question.votes.create(user_id: 2)
       delete "/questions/#{question.id}/votes/ham"
