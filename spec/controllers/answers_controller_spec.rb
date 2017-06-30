@@ -27,6 +27,12 @@ describe "Answer Controller" do
       expect(last_response.location).to include("/questions/#{question.id}")
     end
 
+    it 'will create an answer in the database if a valid answer is given' do
+    answer_count = Answer.all.count
+    post "/questions/#{question.id}/answers", {"answer"=>{"text"=>'ggfhjdgfhgd', "question_id"=>question.id}}
+    expect(Answer.all.count).to eq (answer_count + 1)
+  end
+
     it 'should 422 if an invalid answer is given' do
       post "/questions/#{question.id}/answers", {"answer"=>{"text"=>'', "question_id"=>question.id}}
       expect(last_response.status).to eq(422)
