@@ -21,32 +21,42 @@ describe "Votes Controller" do
 
   end
 
-  # context 'post /questions/:question_id/comments route' do
-  #   let!(:user){ User.create(username: "testuser") }
-  #   it 'should redirect if valid comment is given' do
-  #     post "/questions/1/comments", {"text"=>"comment"}
-  #     expect(last_response.status).to eq(302)
-  #   end
-  #
-  #   it 'should redirect to /questions/:question_id if valid question is given' do
-  #     post "/questions/1/comments", {"text"=>"comment"}
-  #     expect(last_response.location).to include("/questions/1")
-  #   end
-  #
-  #   it 'will create a comment in the database if a valid comment is given' do
-  #      comment_count = question.comments.all.count
-  #      post "/questions/#{question.id}/comments", {"text"=>"comment"}
-  #      expect(question.comments.all.count).to eq (comment_count + 1)
-  #    end
-  #
-  #   it 'should 422 if an invalid comment is given' do
-  #     post "/questions/1/comments", {"text"=>""}
-  #     expect(last_response.status).to eq(422)
-  #   end
-  #
-  #   it 'should include the error message' do
-  #     post "/questions/1/comments", {"text"=>""}
-  #     expect(last_response.body).to include("Text can't be blank")
-  #   end
-  # end
+  context 'post /questions/:question_id/votes route' do
+    it 'should redirect if question is upvoted' do
+      post "/questions/1/votes"
+      expect(last_response.status).to eq(302)
+    end
+
+    it 'should redirect to /questions/:question_id if question is upvoted' do
+      post "/questions/1/votes"
+      expect(last_response.location).to include("/questions/1")
+    end
+
+    it 'will create a vote for question in the database if a question is upvoted' do
+       vote_count = question.votes.count
+       post "/questions/#{question.id}/votes"
+       expect(question.votes.count).to eq (vote_count + 1)
+     end
+  end
+
+  context 'delete /questions/:question_id/votes/ham route' do
+    it 'should redirect if question is downvoted' do
+      question.votes.create(user_id: 2)
+      delete "/questions/#{question.id}/votes/ham"
+      expect(last_response.status).to eq(302)
+    end
+
+    it 'should redirect to /questions/:question_id if question is downvoted' do
+      question.votes.create(user_id: 2)
+      delete "/questions/#{question.id}/votes/ham"
+      expect(last_response.location).to include("/questions/#{question.id}")
+    end
+
+    it 'will delete a vote for question in the database if a question is downvoted' do
+      question.votes.create(user_id: 2)
+      vote_count = question.votes.count
+      delete "/questions/#{question.id}/votes/ham"
+      expect(question.votes.count).to eq (vote_count - 1)
+     end
+  end
 end
