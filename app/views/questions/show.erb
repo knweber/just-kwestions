@@ -1,12 +1,15 @@
 <h2> <%= @question.text %> </h2>
-<form method="post" action='/questions/<%= @question.id %>/vote'>
+# of votes: <%= @question.votes.count %>
+<form method="post" action='/questions/<%= @question.id %>/votes'>
   <input type="submit" name="upvote-question" value="Upvote question" ></button>
 </form>
 
-<form method="delete" action='/questions/<%= @question.id %>/vote/ham'>
-  <input type='hidden' name='_method' value='DELETE' />
-  <input type="submit" name="downvote-question" value="Downvote question" ></button>
-</form>
+<% if @question.votes.count > 0 %>
+  <form method="post" action='/questions/<%= @question.id %>/votes/ham'>
+    <input type='hidden' name='_method' value='delete' />
+    <input type="submit" name="downvote-question" value="Downvote question" ></button>
+  </form>
+<% end %>
 <p>
   Question Author: <%= @question.user.username %>
 </p>
