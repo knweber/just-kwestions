@@ -2,6 +2,7 @@
 <p>
   Question Author: <%= @question.user.username %>
 </p>
+
 Question Comments:
 <% @question_comments.each do |comment|  %>
   <p>
@@ -11,6 +12,9 @@ Question Comments:
     Question Comment Author: <%= comment.user.username %>
   </p>
 <% end %>
+<div>
+  <a href='/questions/<%= @question.id %>/comments/new'>Post a comment</a>
+</div>
 
 <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
 
@@ -22,6 +26,7 @@ Answers:
   <p>
     Answer Author: <%= answer.user.username %>
   </p>
+
   Answer Comments:
     <% answer.comments.each do |comment| %>
       <p>

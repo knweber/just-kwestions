@@ -1,0 +1,12 @@
+<% if defined? errors %>
+  <% errors.each do |error| %>
+    <div>
+      <%= error %>
+    </div>
+  <% end %>
+<% end %>
+
+<form id='comment-form' action='/<%= action %>' method='post'>
+  <input type='text' name='text' />
+  <input type='submit' value='comment' />
+</form>
