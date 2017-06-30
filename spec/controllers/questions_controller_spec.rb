@@ -38,6 +38,12 @@ describe "Question Controller" do
       expect(last_response.status).to eq(302)
     end
 
+    it 'will create a question in the database if a valid question is given' do
+      question_count = Question.all.count
+      post "/questions", {"question"=>{"text"=>question.text}}
+      expect(Question.all.count).to eq (question_count + 1)
+    end
+
     it 'should redirect to /questions if valid question is given' do
       post "/questions", {"question"=>{"text"=>question.text}}
       expect(last_response.location).to include("/questions")
