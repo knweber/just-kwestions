@@ -4,6 +4,7 @@ User.destroy_all
 Question.destroy_all
 Answer.destroy_all
 Comment.destroy_all
+Vote.destroy_all
 
 10.times do
   User.create(username: Faker::Internet.user_name(5..8))
@@ -21,4 +22,8 @@ end
   Comment.create(text: Faker::Hipster.sentence, user_id: User.all.sample.id, commentable_id: Question.all.sample.id, commentable_type: "Question")
 
   Comment.create(text: Faker::Hipster.sentence, user_id: User.all.sample.id, commentable_id: Answer.all.sample.id, commentable_type: "Answer")
+end
+
+100.times do
+  Vote.create(user_id: User.all.sample.id, voteable_id: Question.all.sample.id, voteable_type: "Question")
 end
