@@ -1,4 +1,12 @@
 <h2> <%= @question.text %> </h2>
+<form method="post" action='/questions/<%= @question.id %>/vote'>
+  <input type="submit" name="upvote-question" value="Upvote question" ></button>
+</form>
+
+<form method="delete" action='/questions/<%= @question.id %>/vote/ham'>
+  <input type='hidden' name='_method' value='DELETE' />
+  <input type="submit" name="downvote-question" value="Downvote question" ></button>
+</form>
 <p>
   Question Author: <%= @question.user.username %>
 </p>
