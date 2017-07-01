@@ -18,7 +18,7 @@ describe "Comment Controller" do
   end
 
   context 'post /comments route for questions' do
-    let!(:user){ User.create(username: "testuser") }
+    let!(:user){ FactoryGirl.create(:user) }
     it 'should redirect if valid comment is given' do
       post "/comments", {"text"=>"comment", "commentable_type" => 'question', "commentable_id" => "#{question.id}" }
       expect(last_response.status).to eq(302)
@@ -49,7 +49,7 @@ describe "Comment Controller" do
 # Adding comments to answers
 
   context 'post /comments route for answers' do
-    let!(:user){ User.create(username: "testuser") }
+    let!(:user){ FactoryGirl.create(:user) }
     it 'should redirect if valid comment is given' do
       post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
       expect(last_response.status).to eq(302)

@@ -18,6 +18,21 @@
   <title></title>
 </head>
 <body>
+  <form action='/' method='get'>
+     <input type='submit' value='Home' />
+   </form>
+   <% if session[:user_id] != nil %>
+     <form action='/logout' method='post'>
+       <input type='submit' value='Log out' />
+     </form>
+   <% else %>
+   <form action='/users/new' method='get'>
+     <input type='submit' value='Register' />
+   </form>
+   <form action='/login' method='get'>
+     <input type='submit' value='Sign in' />
+   </form>
+   <% end %>
   <%= yield %>
   <div class='ask'>
     <a href="/questions/new">Ask a Kwestion</a>

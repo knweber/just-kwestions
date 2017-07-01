@@ -7,7 +7,7 @@ Comment.destroy_all
 Vote.destroy_all
 
 10.times do
-  User.create(username: Faker::Internet.user_name(5..8))
+  User.create(username: Faker::Internet.user_name(5..8), email: Faker::Internet.safe_email, password: 'kwestions')
 end
 
 15.times do

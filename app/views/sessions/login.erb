@@ -1,0 +1,14 @@
+<% if defined? errors %>
+  <% errors.each do |message| %>
+  <p class="errors"> <%= message %> </p>
+  <% end %>
+<% end %>
+
+<form class="session_form" action="/login" method="post">
+
+  <input type="text" name="email" placeholder="Email"/>
+  <input type="password" name="password" placeholder="Password"/>
+  <input type="submit" value="Login"/>
+
+
+</form>
