@@ -8,12 +8,11 @@ class User < ActiveRecord::Base
   validates :password_hash, presence: true
 
   has_many :questions
+  has_many :votes
 
   def password
     @password ||= Password.new(password_hash)
   end
-
-
 
   def password=(new_password)
     @password = Password.create(new_password)
@@ -30,5 +29,4 @@ class User < ActiveRecord::Base
       nil
     end
   end
-
 end

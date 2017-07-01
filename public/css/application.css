@@ -1,6 +1,39 @@
 .ask {
   border: 1px solid black;
-  width: 125px;
-  padding: 25px;
+  width: 110px;
+  padding: 10px;
+  margin-top: 10px;
   margin-left: 10px;
+  height: 25px;
+}
+
+.comment-text {
+  width: 200px;
+  height: 80px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+#submit {
+  margin-top: -5px;
+  margin-left: 10px;
+}
+
+#answer-author {
+  font-style: italic;
+}
+
+#question-comment-author {
+  font-style: italic;
+}
+
+#answer-comment-author {
+  font-style: italic;
+}
+
+#question-comment-text {
+}
+
+#answer-comment-text {
+
 }
