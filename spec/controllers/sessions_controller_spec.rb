@@ -14,6 +14,23 @@ describe "Sessions Controller" do
     end
   end
 
-  context ''
+  context 'post /login route' do
+    it 'redirects if it gets valid user info' do
+      
+    end
+
+    it 'redirects to /' do
+
+    end
+
+    it 'gives errors if it gets invalid user info' do
+
+    end
+
+    it 'gives a 422 if it gets invalid user info' do
+
+    end
+
+  end
 
 end
