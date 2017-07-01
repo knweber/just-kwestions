@@ -4,6 +4,7 @@ User.destroy_all
 Question.destroy_all
 Answer.destroy_all
 Comment.destroy_all
+Vote.destroy_all
 
 10.times do
   User.create(username: Faker::Internet.user_name(5..8))
