@@ -64,9 +64,11 @@ Question Comments:
   </div>
 </p>
 <% end %>
-<div>
-  <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Post a comment</a>
-</div>
+<% if session[:user_id] %>
+  <div>
+    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Post a comment</a>
+  </div>
+<% end %>
 
 <% if session[:user_id] %>
   <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
@@ -105,17 +107,19 @@ Answers:
   </p>
 
   Answer Comments:
-  <div>
-    <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Add a comment</a>
-  </div>
-  <% answer.comments.each do |comment| %>
-    <p>
-      <div id='answer-comment-text'>
-        <%= comment.text %>
-      </div>
-    </p>
-    # of upvotes: <%= comment.votes.where(upvote: 'true').count %>
-    <p>
+  <% if session[:user_id] %>
+    <div>
+      <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Add a comment</a>
+    </div>
+  <% end %>
+    <% answer.comments.each do |comment| %>
+      <p>
+        <div id='answer-comment-text'>
+          <%= comment.text %>
+        </div>
+      </p>
+      # of upvotes: <%= comment.votes.where(upvote: 'true').count %>
+      <p>
       # of downvotes: <%= comment.votes.where(upvote: 'false').count %>
     </p>
 

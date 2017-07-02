@@ -4,6 +4,9 @@ describe "Comment Controller" do
   let!(:user1){ FactoryGirl.create(:user) }
   let!(:question){ FactoryGirl.create(:question) }
   let!(:answer){ FactoryGirl.create(:answer) }
+  before(:each) do
+    post '/sessions', { 'email' => user1.email, 'password' => '12345678' }
+  end
 
 # Adding comments to questions
   context 'get /comments/new route' do
@@ -15,6 +18,18 @@ describe "Comment Controller" do
     it 'should display a form' do
       get "/comments/new"
       expect(last_response.body).to include('<form id=\'comment-form\'')
+    end
+
+    it 'should redirect if not logged in' do
+      delete '/sessions/1'
+      get "/comments/new?commentable_type=question&commentable_id=#{question.id}"
+      expect(last_response.status).to eq (302)
+    end
+
+    it 'should redirect to /questions/:question_id if not logged in' do
+      delete '/sessions/1'
+      get "/comments/new?commentable_type=question&commentable_id=#{question.id}"
+      expect(last_response.location).to include("/questions/#{question.id}")
     end
   end
 
@@ -74,6 +89,25 @@ describe "Comment Controller" do
       post "/comments", {"text"=>"", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
       expect(last_response.body).to include("Text can't be blank")
     end
+
+    it 'should redirect if no login' do
+      delete '/sessions/1'
+      post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
+      expect(last_response.status).to eq(302)
+    end
+
+    it 'should redirect to /questions/:question_id if no login' do
+      delete '/sessions/1'
+      post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
+      expect(last_response.location).to include("/questions/#{question.id}")
+    end
+
+    it 'will not create a comment in the database if no login' do
+      delete '/sessions/1'
+      comment_count = answer.comments.all.count
+      post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
+      expect(answer.comments.all.count).to eq (comment_count)
+   end
   end
 
 end
