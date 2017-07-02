@@ -21,7 +21,7 @@ end
 post '/questions' do
   if session[:user_id] != nil
     question_params = params[:question]
-    question_params[:user_id] = User.all.sample.id
+    question_params[:user_id] = session[:user_id]
     question = Question.create(question_params)
     if question.valid?
       redirect '/questions'
