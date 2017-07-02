@@ -1,6 +1,15 @@
 # Comments on questions
 get '/comments/new' do
-  erb :'comments/new', locals: { action: "comments", commentable_type: params[:commentable_type], commentable_id: params[:commentable_id] }
+  if session[:user_id]
+    erb :'comments/new', locals: { action: "comments", commentable_type: params[:commentable_type], commentable_id: params[:commentable_id] }
+  else
+    if params[:commentable_type] == 'question'
+      redirect "/questions/#{params[:commentable_id]}"
+    else
+      question_id = Answer.find(params[:commentable_id]).question.id
+      redirect "/questions/#{question_id}"
+    end
+  end
 end
 
 post '/comments' do
