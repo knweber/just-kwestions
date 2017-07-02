@@ -52,16 +52,16 @@ describe "Votes Controller" do
 
   end
 
-  # context 'post /questions/:question_id/votes route' do
-  #   it 'should redirect if question is upvoted' do
-  #     post "/questions/1/votes"
-  #     expect(last_response.status).to eq(302)
-  #   end
-  #
-  #   it 'should redirect to /questions/:question_id if question is upvoted' do
-  #     post "/questions/1/votes"
-  #     expect(last_response.location).to include("/questions/1")
-  #   end
+  context 'post /questions/:question_id/votes route' do
+    it 'should redirect if question is upvoted' do
+      post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
+      expect(last_response.status).to eq(302)
+    end
+
+    it 'should redirect to /questions/:question_id if question is upvoted' do
+      post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
+      expect(last_response.location).to include("/questions/#{question.id}")
+    end
   #
   #   it 'will create a vote for question in the database if a question is upvoted' do
   #      vote_count = question.votes.count
@@ -89,5 +89,5 @@ describe "Votes Controller" do
   #     delete "/questions/#{question.id}/votes/ham"
   #     expect(question.votes.count).to eq (vote_count - 1)
   #    end
-  # end
+  end
 end
