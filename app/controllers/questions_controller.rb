@@ -7,7 +7,7 @@ get '/questions/new' do
   if session[:user_id] != nil
     erb :'questions/new'
   else
-    redirect '/questions', locals: { errors: ["Must be logged in to post a question."] }
+    redirect '/questions'
   end
 end
 
