@@ -26,7 +26,7 @@ post '/comments' do
   else
     commentable = Answer.find(params[:commentable_id])
   end
-  comment = commentable.comments.create(text: params[:text], user_id: User.all.sample.id)
+  comment = commentable.comments.create(text: params[:text], user_id: session[:user_id])
   if comment.valid?
     if params[:commentable_type] == 'question'
       redirect "/questions/#{commentable.id}"
