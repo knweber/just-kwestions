@@ -1,14 +1,13 @@
 get '/questions' do
   @questions = Question.order(created_at: :asc)
-  erb :'/questions/index'
+  erb :'questions/index'
 end
 
 get '/questions/new' do
   if session[:user_id] != nil
     erb :'questions/new'
   else
-    status 422
-    erb :'questions', locals: { errors: "Must be logged in to post a question." }
+    redirect '/questions', locals: { errors: ["Must be logged in to post a question."] }
   end
 end
 
