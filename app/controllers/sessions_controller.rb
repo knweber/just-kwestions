@@ -1,22 +1,23 @@
 enable :sessions
 
 
-get '/login' do
-  erb :'/sessions/login', layout: false
+get '/sessions/new' do
+  erb :'/sessions/new', layout: false
 end
 
 
-post '/login' do
+post '/sessions' do
   @user = User.authenticate(params[:email], params[:password])
   if @user
     session[:user_id] = @user.id
     redirect '/'
   else
-    erb :'sessions/login', locals: { errors: ["Invalid email address or password."] }
+    status 422
+    erb :'sessions/new', locals: { errors: ["Invalid email address or password."] }
   end
 end
 
-post '/logout' do
+delete '/sessions/:id' do
   session[:user_id] = nil
   redirect '/'
 end
