@@ -1,7 +1,8 @@
-Team Name: JustKwestions
-Members: Jeremy, Jarred, Kala, Kris
-User Stories for MVP:
+# JustKwestions
 
+## Members: Jeremy, Jarred, Kala, Kris
+
+## User Stories for MVP:
 1. A user can see the most recent questions on a single page
 2. A user can click on a question to be taken to the question page
 3. On the question page, a user will see the question (w/comments) and answers (w/comments)
