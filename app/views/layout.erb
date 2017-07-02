@@ -15,7 +15,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="/js/application.js"></script>
 
-  <title></title>
+  <title>Just Kwestions</title>
 </head>
 <body>
   <form action='/' method='get'>
@@ -34,8 +34,10 @@
    </form>
    <% end %>
   <%= yield %>
-  <div class='ask'>
-    <a href="/questions/new">Ask a Kwestion</a>
-  </div>
+  <% if session[:user_id] != nil %>
+    <div class='ask'>
+      <a href="/questions/new">Ask a Kwestion</a>
+    </div>
+  <% end %>
 </body>
 </html>

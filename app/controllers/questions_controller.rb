@@ -4,7 +4,12 @@ get '/questions' do
 end
 
 get '/questions/new' do
-  erb :'questions/new'
+  if session[:user_id] != nil
+    erb :'questions/new'
+  else
+    status 422
+    erb :'questions', locals: { errors: "Must be logged in to post a question." }
+  end
 end
 
 get '/questions/:id' do
