@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 describe "Votes Controller" do
-  let!(:question){ Question.create(text: "this is a question?", user_id: 1)}
-  let!(:answer) { Answer.create(text: 'yes it is', user_id: 2, question_id: question.id)}
-  let!(:question_comment) { question.comments.create(text: 'good idea', user_id: 1)}
-  let!(:answer_comment) { answer.comments.create(text: 'sounds good', user_id: 2)}
+  let!(:user1){ FactoryGirl.create(:user) }
+  let!(:user2){ FactoryGirl.create(:user) }
+  let!(:question){ Question.create(text: "this is a question?", user_id: user1.id)}
+  let!(:answer) { Answer.create(text: 'yes it is', user_id: user2.id, question_id: question.id)}
+  let!(:question_comment) { question.comments.create(text: 'good idea', user_id: user1.id)}
+  let!(:answer_comment) { answer.comments.create(text: 'sounds good', user_id: user2.id)}
 
   context 'vote buttons appear on questions show page' do
 

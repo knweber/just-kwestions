@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe "Answer Controller" do
-  let!(:question){ Question.create(text: "Help me with rspec tests", user_id: 1) }
-
+  let!(:user1){ FactoryGirl.create(:user) }
+  let!(:question){ FactoryGirl.create(:question) }
 
   context 'get /questions/:question_id/answers/new route' do
     it "should respond to the /questions/:question_id/answers/new route" do

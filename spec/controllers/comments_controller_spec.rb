@@ -1,8 +1,9 @@
 require 'spec_helper'
 
 describe "Comment Controller" do
-  let!(:question){ Question.create(text: "this is a question?", user_id: 1)}
-  let!(:answer) { Answer.create(text: 'yes, it is!', question_id: question.id, user_id: 1)}
+  let!(:user1){ FactoryGirl.create(:user) }
+  let!(:question){ FactoryGirl.create(:question) }
+  let!(:answer){ FactoryGirl.create(:answer) }
 
 # Adding comments to questions
   context 'get /comments/new route' do
@@ -18,7 +19,6 @@ describe "Comment Controller" do
   end
 
   context 'post /comments route for questions' do
-    let!(:user){ FactoryGirl.create(:user) }
     it 'should redirect if valid comment is given' do
       post "/comments", {"text"=>"comment", "commentable_type" => 'question', "commentable_id" => "#{question.id}" }
       expect(last_response.status).to eq(302)
@@ -49,7 +49,6 @@ describe "Comment Controller" do
 # Adding comments to answers
 
   context 'post /comments route for answers' do
-    let!(:user){ FactoryGirl.create(:user) }
     it 'should redirect if valid comment is given' do
       post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
       expect(last_response.status).to eq(302)
