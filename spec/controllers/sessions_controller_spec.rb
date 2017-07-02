@@ -15,20 +15,26 @@ describe "Sessions Controller" do
   end
 
   context 'post /login route' do
+    let!(:user) { FactoryGirl.create(:user) }
     it 'redirects if it gets valid user info' do
-
+      post '/login', { 'email' => user.email, 'password' => '12345678' }
+      expect(last_response.status).to eq 302
     end
 
     it 'redirects to /' do
-
+      post '/login', { 'email' => user.email, 'password' => '12345678' }
+      # COME BACK TO THIS IF TIME PERMITS
+      expect(last_response.location).to include('/')
     end
 
     it 'gives errors if it gets invalid user info' do
-
+      post '/login', { 'email' => user.email, 'password' => '123456' }
+      expect(last_response.body).to include('Invalid email address or password.')
     end
 
     it 'gives a 422 if it gets invalid user info' do
-
+      post '/login', { 'email' => user.email, 'password' => '123456' }
+      expect(last_response.status).to eq 422
     end
 
   end

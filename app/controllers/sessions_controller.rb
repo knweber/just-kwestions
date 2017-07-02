@@ -12,6 +12,7 @@ post '/login' do
     session[:user_id] = @user.id
     redirect '/'
   else
+    status 422
     erb :'sessions/login', locals: { errors: ["Invalid email address or password."] }
   end
 end
