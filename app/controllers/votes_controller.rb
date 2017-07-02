@@ -7,7 +7,7 @@ post '/votes' do
     else
       voteable = Comment.find(params[:voteable_id])
     end
-    voteable.votes.create(user_id: User.all.sample.id, upvote: params[:upvote])
+    voteable.votes.create(user_id: session[:user_id], upvote: params[:upvote])
 
     redirect "/questions/#{params[:question_page]}"
   else
