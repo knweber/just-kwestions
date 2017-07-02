@@ -11,9 +11,3 @@ post '/votes' do
   redirect "/questions/#{params[:question_page]}"
 
 end
-
-# delete '/questions/:question_id/votes/:id' do
-#   question = Question.find(params[:question_id])
-#     question.votes.delete(Vote.find_by(voteable_id: question.id, voteable_type: "Question"))
-#     redirect "/questions/#{question.id}"
-# end
