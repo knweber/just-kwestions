@@ -32,7 +32,14 @@ describe "Answer Controller" do
   end
 
   context 'post /questions/:question_id/answers route' do
-    let!(:user){ User.create(username: "testuser", email: "test@gmail.com", password: "12345678") }
+
+    it 'automatically assigns user to answer' do
+      p user1.id
+      post "/questions/#{question.id}/answers", {"answer"=>{"text"=>'ggfhjdgfhgd', "question_id"=>question.id}}
+      p question.answers.last
+      expect(question.answers.last.user_id).to eq(user1.id)
+    end
+
     it 'should redirect if valid question is given' do
       post "/questions/#{question.id}/answers", {"answer"=>{"text"=>'ggfhjdgfhgd', "question_id"=>question.id}}
       expect(last_response.status).to eq(302)

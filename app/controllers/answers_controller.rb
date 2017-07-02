@@ -12,7 +12,7 @@ post '/questions/:question_id/answers' do
     redirect "/questions/#{params[:question_id]}"
   end
   answer_params = params[:answer]
-  answer_params[:user_id] = User.all.sample.id
+  answer_params[:user_id] = session[:user_id]
   answer = Answer.create(answer_params)
   if answer.valid?
     redirect "/questions/#{params[:question_id]}"
