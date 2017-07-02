@@ -41,21 +41,21 @@ Question Comments:
 </p>
 
 <% if session[:user_id] != nil %>
-<form id='question-comment-upvotes' method="post" action='/votes'>
-  <input type='hidden' name='voteable_type' value='comment' />
-  <input type='hidden' name='voteable_id' value=<%= comment.id %> />
-  <input type='hidden' name='upvote' value='true' />
-  <input type='hidden' name='question_page' value=<%= @question.id %> />
-  <input type="submit" name="upvote-question-comment" value="Upvote comment" ></button>
-</form>
+  <form id='question-comment-upvotes' method="post" action='/votes'>
+    <input type='hidden' name='voteable_type' value='comment' />
+    <input type='hidden' name='voteable_id' value=<%= comment.id %> />
+    <input type='hidden' name='upvote' value='true' />
+    <input type='hidden' name='question_page' value=<%= @question.id %> />
+    <input type="submit" name="upvote-question-comment" value="Upvote comment" ></button>
+  </form>
 
-<form id='question-comment-downvotes' method="post" action='/votes'>
-  <input type='hidden' name='voteable_type' value='comment' />
-  <input type='hidden' name='voteable_id' value=<%= comment.id %> />
-  <input type='hidden' name='upvote' value='false' />
-  <input type='hidden' name='question_page' value=<%= @question.id %> />
-  <input type="submit" name="downvote-question-comment" value="Downvote comment" ></button>
-</form>
+  <form id='question-comment-downvotes' method="post" action='/votes'>
+    <input type='hidden' name='voteable_type' value='comment' />
+    <input type='hidden' name='voteable_id' value=<%= comment.id %> />
+    <input type='hidden' name='upvote' value='false' />
+    <input type='hidden' name='question_page' value=<%= @question.id %> />
+    <input type="submit" name="downvote-question-comment" value="Downvote comment" ></button>
+  </form>
 <% end %>
 
 <p>
