@@ -30,6 +30,6 @@ post '/questions' do
       erb :'questions/new', locals: { errors: question.errors.full_messages }
     end
   else
-    redirect 'questions'
+    redirect '/questions'
   end
 end
