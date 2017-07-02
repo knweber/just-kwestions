@@ -3,6 +3,11 @@ require 'spec_helper'
 describe "Question Controller" do
   let!(:user1){ FactoryGirl.create(:user) }
   let!(:question){ FactoryGirl.create(:question) }
+
+  before(:each) do
+    post '/sessions', { 'email' => user1.email, 'password' => '12345678' }
+  end
+
   context 'get /questions route' do
     it "should respond to the /questions route" do
       get "/questions"
@@ -26,6 +31,12 @@ describe "Question Controller" do
       expect(last_response.status).to eq(200)
     end
 
+    it 'should redirect if a user is not logged in' do
+      delete '/sessions/1'
+      get '/questions/new'
+      expect(last_response.status).to eq 302
+    end
+
     it 'should display a form' do
       get "/questions/new"
       expect(last_response.body).to include('<form id=\'question-form\'')
@@ -38,6 +49,7 @@ describe "Question Controller" do
       post "/questions", {"question"=>{"text"=>question.text}}
       expect(last_response.status).to eq(302)
     end
+
 
     it 'will create a question in the database if a valid question is given' do
       question_count = Question.all.count
