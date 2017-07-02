@@ -89,6 +89,25 @@ describe "Comment Controller" do
       post "/comments", {"text"=>"", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
       expect(last_response.body).to include("Text can't be blank")
     end
+
+    it 'should redirect if no login' do
+      delete '/sessions/1'
+      post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
+      expect(last_response.status).to eq(302)
+    end
+
+    it 'should redirect to /questions/:question_id if no login' do
+      delete '/sessions/1'
+      post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
+      expect(last_response.location).to include("/questions/#{question.id}")
+    end
+
+    it 'will not create a comment in the database if no login' do
+      delete '/sessions/1'
+      comment_count = answer.comments.all.count
+      post "/comments", {"text"=>"comment", "commentable_type" => 'answer', "commentable_id" => "#{answer.id}" }
+      expect(answer.comments.all.count).to eq (comment_count)
+   end
   end
 
 end

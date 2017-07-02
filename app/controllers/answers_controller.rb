@@ -9,7 +9,7 @@ end
 
 post '/questions/:question_id/answers' do
   if !session[:user_id]
-    return redirect "/questions/#{params[:question_id]}"
+    redirect "/questions/#{params[:question_id]}"
   end
   answer_params = params[:answer]
   answer_params[:user_id] = User.all.sample.id
