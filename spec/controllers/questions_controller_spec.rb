@@ -16,7 +16,7 @@ describe "Question Controller" do
 
     it "should display questions" do
       get "/questions"
-      expect(last_response.body).to include(question.text)
+      expect(last_response.body).to include(question.title)
     end
 
     it "should display each question as a link" do
@@ -45,34 +45,34 @@ describe "Question Controller" do
 
   context 'post /questions route' do
     it 'should redirect if valid question is given' do
-      post "/questions", {"question"=>{"text"=>question.text}}
+      post "/questions", {"question"=>{"title" => question.title, "text"=>question.text}}
       expect(last_response.status).to eq(302)
     end
 
     it 'automatically assigns user to question' do
-      post "/questions", {"question"=>{"text"=>question.text}}
+      post "/questions", {"question"=>{"title" => question.title, "text"=>question.text}}
       expect(question.user_id).to eq(user1.id)
     end
 
 
     it 'will create a question in the database if a valid question is given' do
       question_count = Question.all.count
-      post "/questions", {"question"=>{"text"=>question.text}}
+      post "/questions", {"question"=>{"title" => question.title, "text"=>question.text}}
       expect(Question.all.count).to eq (question_count + 1)
     end
 
     it 'should redirect to /questions if valid question is given' do
-      post "/questions", {"question"=>{"text"=>question.text}}
+      post "/questions", {"question"=>{"title" => question.title, "text"=>question.text}}
       expect(last_response.location).to include("/questions")
     end
 
     it 'should 422 if an invalid question is given' do
-      post "/questions", {"question"=>{"text"=>""}}
+      post "/questions", {"question"=>{"title" => question.title, "text"=>""}}
       expect(last_response.status).to eq(422)
     end
 
     it 'should include the error message' do
-      post "/questions", {"question"=>{"text"=>""}}
+      post "/questions", {"question"=>{"title" => question.title, "text"=>""}}
       expect(last_response.body).to include("Text can't be blank")
     end
   end
