@@ -1,10 +1,11 @@
-<h2> <%= @question.text %> </h2>
-
+<h2> <%= @question.title %> </h2>
+<p><%= @question.text %></p>
 
 # of upvotes: <%= @question.votes.where(upvote: 'true').count %>
 <p>
   # of downvotes: <%= @question.votes.where(upvote: 'false').count %>
 </p>
+
 
 <% if session[:user_id] != nil %>
 <form id='question-upvotes' method="post" action='/votes'>
