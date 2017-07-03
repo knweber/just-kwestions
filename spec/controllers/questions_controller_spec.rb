@@ -102,6 +102,12 @@ describe "Question Controller" do
       question.reload
       expect(question.best_answer).to eq answer2
     end
+
+    it 'should say the best on the redirect page' do
+      put "/questions/#{question.id}", { "answer_id" => answer.id }
+      get "/questions/#{question.id}"
+      expect(last_response.body).to include("I'm the best!")
+    end
   end
 
 end
