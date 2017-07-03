@@ -11,7 +11,7 @@ Vote.destroy_all
 end
 
 15.times do
-  Question.create(text: Faker::StarWars.quote, user_id: User.all.sample.id)
+  Question.create(title: Faker::StarWars.quote, text: Faker::StarWars.wookie_sentence, user_id: User.all.sample.id)
 end
 
 50.times do
