@@ -126,6 +126,13 @@ describe "Votes Controller" do
         post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
         expect(question.votes.count).to eq (vote_count + 1)
       end
+
+      it 'will not create a new vote if question was already upvoted by the user' do
+        post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
+        vote_count = question.votes.where(upvote: 'true').count
+        post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
+        expect(question.votes.count).to eq vote_count
+      end
     end
 
     context 'post /votes route for downvoting questions' do
@@ -144,6 +151,24 @@ describe "Votes Controller" do
         post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'false', "question_page" => "#{question.id}" }
         expect(question.votes.count).to eq (vote_count + 1)
       end
+
+      it 'will not create a new vote if question was already downvoted by the user' do
+        post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'false', "question_page" => "#{question.id}" }
+        vote_count = question.votes.where(upvote: 'false').count
+        post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'false', "question_page" => "#{question.id}" }
+        expect(question.votes.count).to eq vote_count
+      end
     end
+
+    context 'changing vote' do
+      it 'will change the vote upvote status if the user votes the other way' do
+        post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
+        vote = question.votes.last
+        post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'false', "question_page" => "#{question.id}" }
+        vote.reload
+        expect(vote.upvote).to eq false
+      end
+    end
+
   end
 end
