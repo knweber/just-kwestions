@@ -77,4 +77,31 @@ describe "Question Controller" do
     end
   end
 
+  context 'the best' do
+    let!(:answer){ FactoryGirl.create(:answer) }
+    it 'should set the selected answer as the best' do
+      put "/questions/#{question.id}", { "answer_id" => answer.id }
+      question.reload
+      expect(question.best_answer).to eq answer
+    end
+
+    it 'should redirect' do
+      put "/questions/#{question.id}", { "answer_id" => answer.id }
+      expect(last_response.status).to eq 302
+    end
+
+    it 'should redirect to /questions/:id' do
+      put "/questions/#{question.id}", { "answer_id" => answer.id }
+      expect(last_response.location).to include("/questions/#{question.id}")
+    end
+
+    it 'should update the best answer even if there is one already selected' do
+      put "/questions/#{question.id}", { "answer_id" => answer.id }
+      answer2 = FactoryGirl.create(:answer)
+      put "/questions/#{question.id}", { "answer_id" => answer2.id }
+      question.reload
+      expect(question.best_answer).to eq answer2
+    end
+  end
+
 end
