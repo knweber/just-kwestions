@@ -127,6 +127,10 @@ describe "Votes Controller" do
         expect(question.votes.count).to eq (vote_count + 1)
       end
 
+      it 'automatically assigns user to upvote on comment' do
+        post "/votes", { "voteable_type" => 'comment', "voteable_id" => "#{question_comment.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
+        expect(question_comment.votes.last.user_id).to eq(user1.id)
+      end
       it 'will not create a new vote if question was already upvoted by the user' do
         post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'true', "question_page" => "#{question.id}" }
         vote_count = question.votes.where(upvote: 'true').count
@@ -151,6 +155,11 @@ describe "Votes Controller" do
         post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'false', "question_page" => "#{question.id}" }
         expect(question.votes.count).to eq (vote_count + 1)
       end
+      it 'automatically assigns user to downvote on comment' do
+        post "/votes", { "voteable_type" => 'comment', "voteable_id" => "#{question_comment.id}", "upvote" => 'false', "question_page" => "#{question.id}" }
+        expect(question_comment.votes.last.user_id).to eq(user1.id)
+      end
+
 
       it 'will not create a new vote if question was already downvoted by the user' do
         post "/votes", {"voteable_type" => 'question', "voteable_id" => "#{question.id}", "upvote" => 'false', "question_page" => "#{question.id}" }

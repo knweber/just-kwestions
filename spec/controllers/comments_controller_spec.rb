@@ -59,6 +59,11 @@ describe "Comment Controller" do
       post "/comments", {"text"=>"", "commentable_type" => 'question', "commentable_id" => "#{question.id}" }
       expect(last_response.body).to include("Text can't be blank")
     end
+
+    it 'automatically assigns author to comment' do
+      post "/comments", {"text"=>"blahhh", "commentable_type" => 'question', "commentable_id" => "#{question.id}" }
+      expect(question.comments.last.user_id).to eq(user1.id)
+    end
   end
 
 # Adding comments to answers
