@@ -76,6 +76,9 @@ Question Comments:
 
 Answers:
 <% @answers.each do |answer| %>
+  <% if @question.best_answer == answer %>
+    <h1>I'm the best! :+1:</h1>
+  <% end %>
   <p>
     <%= answer.text %>
   </p>
@@ -99,6 +102,13 @@ Answers:
       <input type='hidden' name='upvote' value='false' />
       <input type='hidden' name='question_page' value=<%= @question.id %> />
       <input type="submit" name="downvote-answer" value="Downvote answer" ></button>
+    </form>
+  <% end %>
+  <% if session[:user_id] == @question.user_id %>
+    <form id='choose-best-answer' method="post" action='/questions/<%= @question.id %>'>
+      <input type='hidden' name='_method' value="PUT" />
+      <input type='hidden' name="answer_id" value=<%= answer.id %> />
+      <input type="submit" name='submit-best' value="The Best!" />
     </form>
   <% end %>
   <p>
