@@ -34,9 +34,7 @@ describe "Answer Controller" do
   context 'post /questions/:question_id/answers route' do
 
     it 'automatically assigns user to answer' do
-      p user1.id
       post "/questions/#{question.id}/answers", {"answer"=>{"text"=>'ggfhjdgfhgd', "question_id"=>question.id}}
-      p question.answers.last
       expect(question.answers.last.user_id).to eq(user1.id)
     end
 
