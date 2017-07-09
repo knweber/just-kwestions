@@ -1,7 +1,7 @@
 # Comments on questions
 get '/comments/new' do
   if session[:user_id]
-    erb :'comments/_new', locals: { action: "comments", commentable_type: params[:commentable_type], commentable_id: params[:commentable_id] }
+    erb :'comments/new', locals: { action: "comments", commentable_type: params[:commentable_type], commentable_id: params[:commentable_id] }
   else
     if params[:commentable_type] == 'question'
       redirect "/questions/#{params[:commentable_id]}"
@@ -35,6 +35,6 @@ post '/comments' do
     end
   else
     status 422
-    erb :'comments/_new', locals: { action: "comments", errors: comment.errors.full_messages, commentable_type: params[:commentable_type], commentable_id: params[:commentable_id]}
+    erb :'comments/new', locals: { action: "comments", errors: comment.errors.full_messages, commentable_type: params[:commentable_type], commentable_id: params[:commentable_id]}
   end
 end

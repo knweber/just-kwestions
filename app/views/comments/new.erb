@@ -1,0 +1,5 @@
+<% if defined? errors %>
+  <%= erb :"_errors", locals: {errors: errors} %>
+<% end %>
+
+<%= erb :"/comments/_form", locals: { action: action, commentable_type: commentable_type, commentable_id: commentable_id } %>
