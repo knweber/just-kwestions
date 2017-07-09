@@ -17,7 +17,7 @@ describe "Comment Controller" do
 
     it 'should display a form' do
       get "/comments/new"
-      expect(last_response.body).to include('<form id=\'comment-form\'')
+      expect(last_response.body).to include('<form class=\'comment-form\'')
     end
 
     it 'should redirect if not logged in' do

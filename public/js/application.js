@@ -14,6 +14,8 @@ $(document).ready(function() {
       $("#question-comment-container").append(data);
       $(".comment-form textarea").val('');
       $("#question-comment-form-container").hide();
+      $("#question-comment-errors").html('');
+
     });
     request.fail( function(data) {
       $("#question-comment-errors").html(data.responseText);
