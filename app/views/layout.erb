@@ -35,10 +35,6 @@
    </form>
    <% end %>
   <%= yield %>
-  <% if session[:user_id] != nil %>
-    <div class='ask'>
-      <a href="/questions/new">Ask a Kwestion</a>
-    </div>
-  <% end %>
+
 </body>
 </html>
