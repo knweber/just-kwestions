@@ -46,6 +46,13 @@
   </div>
 <% end %>
 
+<div id="answer-container">
+  Answers:
+  <% @answers.each do |answer| %>
+    <%= erb :"answers/_answer", layout: false, locals: { answer: answer} %>
+  <% end %>
+</div>
+
 <% if session[:user_id] %>
   <div id="new-answer-container">
     <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
@@ -55,9 +62,3 @@
     </div>
   </div>
 <% end %>
-<div id="answer-container">
-  Answers:
-  <% @answers.each do |answer| %>
-    <%= erb :"answers/_answer", layout: false, locals: { answer: answer} %>
-  <% end %>
-</div>
