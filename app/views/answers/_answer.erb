@@ -38,6 +38,12 @@
   </p>
 
   Answer Comments:
+  <div class="answer-comment-container">
+    <% answer.comments.each do |comment| %>
+      <%= erb :'comments/_answer_comment', layout: false, locals: { comment: comment} %>
+    <% end %>
+  </div>
+
   <% if session[:user_id] %>
     <div class="new-answer-comment-container">
       <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
@@ -47,10 +53,4 @@
       </div>
     </div>
   <% end %>
-
-  <div class="answer-comment-container">
-    <% answer.comments.each do |comment| %>
-      <%= erb :'comments/_answer_comment', layout: false, locals: { comment: comment} %>
-    <% end %>
-  </div>
 </div>
