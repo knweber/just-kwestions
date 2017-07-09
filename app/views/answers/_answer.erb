@@ -39,7 +39,7 @@
 Answer Comments:
 <% if session[:user_id] %>
   <div>
-    <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Add a comment</a>
+    <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
   </div>
 <% end %>
 <% answer.comments.each do |comment| %>
@@ -71,7 +71,7 @@ Answer Comments:
 
   <p>
     <div id='answer-comment-author'>
-      Answer Comment Author: <%= comment.user.username %>
+      Author: <%= comment.user.username %>
     </div>
   </p>
 <% end %>

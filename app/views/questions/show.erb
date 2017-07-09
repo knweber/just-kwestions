@@ -38,7 +38,7 @@
 
 <% if session[:user_id] %>
   <div id="new-question-comment-container">
-    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Post a comment</a>
+    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Comment on this question</a>
     <div id="question-comment-errors"></div>
     <div id="question-comment-form-container" hidden="true">
       <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "question", commentable_id: @question.id } %>
