@@ -1,15 +1,5 @@
 <% if defined? errors %>
-  <% errors.each do |error| %>
-    <div>
-      <%= error %>
-    </div>
-  <% end %>
+  <%= erb :"_errors", locals: {errors: errors} %>
 <% end %>
 
-<form id='comment-form' action='/<%= action %>' method='post'>
-  <textarea class='comment-text' name='text' placeholder='Type your comment...'></textarea>
-  <input type='hidden' name='commentable_type' value=<%= commentable_type %> />
-  <input type='hidden' name='commentable_id' value=<%= commentable_id %> />
-  <p></p>
-  <input id='submit' type='submit' value='comment' />
-</form>
+<%= erb :"/comments/_form", locals: { action: action, commentable_type: commentable_type, commentable_id: commentable_id } %>
