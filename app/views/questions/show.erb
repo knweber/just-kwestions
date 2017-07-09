@@ -38,7 +38,7 @@
 
 <% if session[:user_id] %>
   <div id="new-question-comment-container">
-    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Post a comment</a>
+    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Comment on this question</a>
     <div id="question-comment-errors"></div>
     <div id="question-comment-form-container" hidden="true">
       <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "question", commentable_id: @question.id } %>
@@ -46,11 +46,19 @@
   </div>
 <% end %>
 
-<% if session[:user_id] %>
-  <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
-<% end %>
+<div id="answer-container">
+  Answers:
+  <% @answers.each do |answer| %>
+    <%= erb :"answers/_answer", layout: false, locals: { answer: answer} %>
+  <% end %>
+</div>
 
-Answers:
-<% @answers.each do |answer| %>
-  <%= erb :'answers/_answer', locals: { answer: answer } %>
+<% if session[:user_id] %>
+  <div id="new-answer-container">
+    <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
+    <div id="answer-errors"></div>
+    <div id="answer-form-container" hidden="true">
+      <%= erb :"/answers/_form", layout: false %>
+    </div>
+  </div>
 <% end %>

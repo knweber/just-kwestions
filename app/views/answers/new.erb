@@ -1,13 +1,5 @@
 <h3>Add an Answer:</h3>
 <% if defined? errors %>
-  <% errors.each do |error| %>
-    <div>
-      <%= error %>
-    </div>
-  <% end %>
+  <%= erb :"_errors", layout: false, locals: { errors: errors} %>
 <% end %>
-<form id='answer-form' action='/questions/<%= @question.id %>/answers' method="POST">
-  <textarea name='answer[text]' placeholder='Add an Answer'></textarea>
-  <input type='hidden' name='answer[question_id]' value='<%= @question.id %>'>
-  <input type='submit' name='submit' value='Post Answer' />
-</form>
+<%= erb :"answers/_form", layout: false %>

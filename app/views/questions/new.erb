@@ -8,10 +8,9 @@
 
 <form id='question-form' action='/questions' method='POST'>
   <label for='text'>Ask a Kwestion:</label>
-  <input id='title' name='question[title]' type='text' />
+  <input id='title' name='question[title]' type='text' placeholder='Title' />
   <div>
-  <textarea id='text' name='question[text]'>
-  </textarea>
+  <textarea id='text' name='question[text]' placeholder='Description'></textarea>
   </div>
-  <input type='submit' value='kwest!!' />
+  <input id='kwest-button' type='submit' value='kwest!!' />
 </form>
