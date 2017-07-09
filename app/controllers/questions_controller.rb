@@ -4,8 +4,11 @@ get '/questions' do
 end
 
 get '/questions/new' do
+
+
+
   if session[:user_id] != nil
-    erb :'questions/new'
+    erb :'questions/new', layout: !request.xhr?
   else
     redirect '/questions'
   end

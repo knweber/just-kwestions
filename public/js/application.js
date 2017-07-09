@@ -1,7 +1,29 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  $('a.ask-question-button').on('click', function(event){
+    event.preventDefault();
+    var url = $(this).attr('href');
+    $(this).hide();
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(response){
+        $('#question-container').append(response);
+      }
+    });
+  });
+
+  $('#kwest-button').on('click', function(event){
+    event.preventDefault();
+    var url = $(this).parent().attr('action');
+
+    $.ajax({
+      url: url,
+      type: 'POST',
+      success: function(response){
+        $('#question-container').append(response);
+      }
+    })
+  })
 });
