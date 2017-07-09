@@ -14,16 +14,21 @@ $(document).ready(function() {
     });
   });
 
-  $('#kwest-button').on('click', function(event){
+  $('body').on('submit', '#question-form', function(event){
     event.preventDefault();
-    var url = $(this).parent().attr('action');
+    console.log(this)
+    var url = $(this).attr('action');
+    var data = $(this).serialize();
+    $('#question-form').hide();
+    $('a.ask-question-button').show();
 
     $.ajax({
       url: url,
-      type: 'POST',
-      success: function(response){
+      method: 'POST',
+      data: data
+    }).done(function(response){
+        console.log(response)
         $('#question-container').append(response);
-      }
-    })
+      })
   })
 });

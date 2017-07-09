@@ -4,9 +4,6 @@ get '/questions' do
 end
 
 get '/questions/new' do
-
-
-
   if session[:user_id] != nil
     erb :'questions/new', layout: !request.xhr?
   else
@@ -25,15 +22,18 @@ post '/questions' do
   if session[:user_id] != nil
     question_params = params[:question]
     question_params[:user_id] = session[:user_id]
-    question = Question.create(question_params)
-    if question.valid?
-      redirect '/questions'
+    question = Question.new(question_params)
+    if request.xhr?
+      if question.valid?
+        question.save!
+        erb :'questions/_question', layout: false, locals: { question: question }
+      else
+        status 422
+        erb :'questions/new', locals: { errors: question.errors.full_messages }
+      end
     else
-      status 422
-      erb :'questions/new', locals: { errors: question.errors.full_messages }
+      redirect '/'
     end
-  else
-    redirect '/questions'
   end
 end
 
