@@ -16,19 +16,25 @@ $(document).ready(function() {
 
   $('body').on('submit', '#question-form', function(event){
     event.preventDefault();
-    console.log(this)
     var url = $(this).attr('action');
     var data = $(this).serialize();
-    $('#question-form').hide();
-    $('a.ask-question-button').show();
+    // $('#question-form').hide();
+    // $('a.ask-question-button').show();
 
     $.ajax({
       url: url,
       method: 'POST',
-      data: data
-    }).done(function(response){
-        console.log(response)
+      data: data,
+      statusCode: {
+        200: function(response){
         $('#question-container').append(response);
-      })
+        $('#question-form').hide();
+        $('a.ask-question-button').show();
+      },
+        422: function(){
+          alert('All sections are required')
+        }
+      }
+    })
   })
 });
