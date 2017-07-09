@@ -32,7 +32,13 @@ post '/questions' do
         erb :'questions/new', locals: { errors: question.errors.full_messages }
       end
     else
-      redirect '/'
+      if question.valid?
+        question.save!
+        redirect '/questions'
+      else
+        status 422
+        erb :'questions/new', locals: { errors: question.errors.full_messages }
+      end
     end
   end
 end
