@@ -19,8 +19,6 @@ $(document).ready(function() {
     event.preventDefault();
     var url = $(this).attr('action');
     var data = $(this).serialize();
-    // $('#question-form').hide();
-    // $('a.ask-question-button').show();
 
     $.ajax({
       url: url,
