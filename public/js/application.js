@@ -110,9 +110,9 @@ $(document).ready(function() {
 
   $("#answer-container").on("click", ".new-answer-comment-container a", function(e) {
     e.preventDefault();
-    $(this).parent().find(".answer-comment-form-container").toggle();
-    $(this).parent().find(".answer-comment-errors").html("");
-    $(this).parent().find(".comment-form textarea").val("");
+    $(this).parent().parent().find(".answer-comment-form-container").toggle();
+    $(this).parent().parent().find(".answer-comment-errors").html("");
+    $(this).parent().parent().find(".comment-form textarea").val("");
   });
 
   $("#answer-container").on("submit", ".comment-form", function(e) {
