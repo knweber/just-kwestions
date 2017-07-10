@@ -1,14 +1,19 @@
 <div id="answer-<%= answer.id %>">
+  <div class='is-the-best'>
   <% if @question.best_answer == answer %>
-    <h1>I'm the best! :+1:</h1>
+  <h1>I'm the best!</h1>
   <% end %>
-  <p>
-    <%= answer.text %>
-  </p>
-  <span># of upvotes: <%= answer.votes.where(upvote: 'true').count %></span>
-  <span># of downvotes: <%= answer.votes.where(upvote: 'false').count %></span>
+  </div>
 
-  <% if session[:user_id] != nil %>
+
+  <div class='answer-info'>
+    <p>
+      <%= answer.text %>
+    </p>
+    <span># of upvotes: <%= answer.votes.where(upvote: 'true').count %></span>
+    <span># of downvotes: <%= answer.votes.where(upvote: 'false').count %></span>
+
+    <% if session[:user_id] != nil %>
     <form id='answer-upvotes' method="post" action='/votes'>
       <input type='hidden' name='voteable_type' value='answer' />
       <input type='hidden' name='voteable_id' value=<%= answer.id %> />
@@ -24,19 +29,18 @@
       <input type='hidden' name='question_page' value=<%= @question.id %> />
       <input type="submit" name="downvote-answer" value="Downvote answer" ></button>
     </form>
-  <% end %>
-  <% if session[:user_id] == @question.user_id %>
+    <% end %>
+    <% if session[:user_id] == @question.user_id %>
     <form id='choose-best-answer' method="post" action='/questions/<%= @question.id %>'>
       <input type='hidden' name='_method' value="PUT" />
       <input type='hidden' name="answer_id" value=<%= answer.id %> />
       <input type="submit" name='submit-best' value="The Best!" />
     </form>
-  <% end %>
-  <p>
-    <div id='answer-author'> Answer Author: <%= answer.user.username %>
-    </div>
-  </p>
-
+    <% end %>
+    <p>
+      <div id='answer-author'> Answer Author: <%= answer.user.username %>
+      </div>
+    </p>
   Answer Comments:
   <div class="answer-comment-container">
     <% answer.comments.each do |comment| %>

@@ -45,9 +45,22 @@ end
 
 put '/questions/:id' do
   question = Question.find(params[:id])
-  if session[:user_id] == question.user_id
-    question.best_answer = Answer.find(params[:answer_id])
-    question.save # curse you activerecord
+  if request.xhr?
+    if session[:user_id] == question.user_id
+      question.best_answer = Answer.find(params[:answer_id])
+      question.save # curse you activerecord
+      answer = question.best_answer
+      content_type :json
+      {
+        id: answer.id,
+        html: "<h1>I'm the best!</h1>"
+      }.to_json
+    end
+  else
+    if session[:user_id] == question.user_id
+      question.best_answer = Answer.find(params[:answer_id])
+      question.save # curse you activerecord
+    end
+    redirect "/questions/#{params[:id]}"
   end
-  redirect "/questions/#{params[:id]}"
 end

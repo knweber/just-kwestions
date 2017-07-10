@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+// Add question to index
 
   $('a.ask-question-button').on('click', function(event){
     event.preventDefault();
@@ -36,6 +37,8 @@ $(document).ready(function() {
     })
   })
 
+// Add new comment to question
+
   $("#new-question-comment-container a").on("click", function(e) {
     e.preventDefault();
     $("#question-comment-form-container").toggle();
@@ -60,6 +63,23 @@ $(document).ready(function() {
     request.fail( function(data) {
       $("#question-comment-errors").html(data.responseText);
     });
+  });
+
+  // Select best answer
+
+  $('body').on('submit', '#choose-best-answer', function(event){
+    event.preventDefault();
+    var url = $('#choose-best-answer').attr('action');
+
+    $.ajax({
+      url: url,
+      method: 'PUT',
+      data: $('#choose-best-answer').serialize(),
+      success: function(response){
+        var selector = "#answer-" + response.id;
+        $(selector + " .is-the-best").html(response.html);
+      }
+    })
   });
 
   $("#new-answer-container a").on("click", function(e) {
