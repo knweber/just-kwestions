@@ -11,7 +11,7 @@ $(document).ready(function() {
       url: url,
       type: 'GET',
       success: function(response){
-        $('#question-container').append(response);
+        $('.ask-question-button-container').prepend(response);
       }
     });
   });

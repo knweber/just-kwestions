@@ -19,6 +19,14 @@
   margin-left: 10px;
 }*/
 
+.comment {
+  margin-left: 20px;
+  margin-top: 2px;
+  border: 1px solid #00613e;
+  background-color: #10995b;
+  padding: 0 10px;
+}
+
 #answer-author {
   font-style: italic;
 }
@@ -31,11 +39,12 @@
   font-style: italic;
 }
 
-#question-comment-text {
+.question-comment-text {
+  font-size: 0.75em;
 }
 
-#answer-comment-text {
-
+.answer-comment-text {
+  font-size: 0.75em;
 }
 
 
@@ -111,15 +120,24 @@ input[type=text], input[type=password], textarea {
 .button {
   background: #32bb7d;
   color: #fefefe;
-  padding: 1em;
+  min-width: 100px;
+  padding: 2px;
   text-decoration: none;
+  font-size: 0.9em;
 }
 
-  .button:hover {
-    color: white;
-    text-decoration: none;
-    background-color: #6ec7a5;
-  }
+.vote {
+  float: left;
+  display: inline;
+  margin-left: 1em;
+  margin-bottom: 0.2em;
+}
+
+.button:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #6ec7a5;
+}
 
 .c-dk-green {
   color: #05724f;
@@ -333,8 +351,12 @@ input[type=text], input[type=password], textarea {
   /*padding-top: -5px;*/
 }
 
+.clear {
+  clear: both;
+}
+
 .description {
-  height: 50px;
+  min-height: 50px;
   padding: 5px;
   color: #05724f;
   background-color: white;
@@ -347,9 +369,38 @@ hr {
   border-top: 1px solid #8c8b8b;
 }
 
+.points {
+  font-size: .75em;
+  display: inline;
+  float: left;
+}
+
+.heading {
+  font-size: 1.5em;
+}
+
 #question-points {
   margin-bottom: 10px;
   font-size: .75em;
   display: inline;
   float: left;
+}
+
+.ask-question-button-container {
+  width: 100%;
+  min-height: 40px;
+  bottom: 0px;
+  position: fixed;
+  background-color: #00613e;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+}
+
+.ask-question-button {
+  color: white;
+}
+
+#title, #text {
+  width: 600px;
 }
