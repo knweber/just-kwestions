@@ -10,10 +10,8 @@
     <p>
       <%= answer.text %>
     </p>
-    # of upvotes: <%= answer.votes.where(upvote: 'true').count %>
-    <p>
-      # of downvotes: <%= answer.votes.where(upvote: 'false').count %>
-    </p>
+    <span># of upvotes: <%= answer.votes.where(upvote: 'true').count %></span>
+    <span># of downvotes: <%= answer.votes.where(upvote: 'false').count %></span>
 
     <% if session[:user_id] != nil %>
     <form id='answer-upvotes' method="post" action='/votes'>
@@ -43,48 +41,20 @@
       <div id='answer-author'> Answer Author: <%= answer.user.username %>
       </div>
     </p>
-
-    Answer Comments:
-    <% if session[:user_id] %>
-    <div>
-      <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Add a comment</a>
-    </div>
-    <% end %>
+  Answer Comments:
+  <div class="answer-comment-container">
     <% answer.comments.each do |comment| %>
-    <p>
-      <div id='answer-comment-text'>
-        <%= comment.text %>
-      </div>
-    </p>
-    # of upvotes: <%= comment.votes.where(upvote: 'true').count %>
-    <p>
-      # of downvotes: <%= comment.votes.where(upvote: 'false').count %>
-    </p>
-
-    <% if session[:user_id] != nil %>
-    <form id='answer-comment-upvotes' method="post" action='/votes'>
-      <input type='hidden' name='voteable_type' value='comment' />
-      <input type='hidden' name='voteable_id' value=<%= comment.id %> />
-      <input type='hidden' name='upvote' value='true' />
-      <input type='hidden' name='question_page' value=<%= @question.id %> />
-      <input type="submit" name="upvote-answer-comment" value="Upvote comment" ></button>
-    </form>
-
-    <form id='answer-comment-downvotes' method="post" action='/votes'>
-      <input type='hidden' name='voteable_type' value='comment' />
-      <input type='hidden' name='voteable_id' value=<%= comment.id %> />
-      <input type='hidden' name='upvote' value='false' />
-      <input type='hidden' name='question_page' value=<%= @question.id %> />
-      <input type="submit" name="downvote-answer-comment" value="Downvote comment" ></button>
-    </form>
-    <% end %>
-
-
-    <p>
-      <div id='answer-comment-author'>
-        Answer Comment Author: <%= comment.user.username %>
-      </div>
-    </p>
+      <%= erb :'comments/_answer_comment', layout: false, locals: { comment: comment} %>
     <% end %>
   </div>
+
+  <% if session[:user_id] %>
+    <div class="new-answer-comment-container">
+      <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
+      <div class="answer-comment-errors"></div>
+      <div class="answer-comment-form-container" hidden="true">
+        <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "answer", commentable_id: answer.id } %>
+      </div>
+    </div>
+  <% end %>
 </div>

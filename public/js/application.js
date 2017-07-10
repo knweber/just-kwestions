@@ -20,7 +20,6 @@ $(document).ready(function() {
     event.preventDefault();
     var url = $(this).attr('action');
     var data = $(this).serialize();
-
     $.ajax({
       url: url,
       method: 'POST',
@@ -109,4 +108,31 @@ $(document).ready(function() {
     });
   });
 
+  $("#answer-container").on("click", ".new-answer-comment-container a", function(e) {
+    e.preventDefault();
+    $(this).siblings(".answer-comment-form-container").toggle();
+    $(this).siblings(".answer-comment-errors").html("");
+    $(this).siblings(".answer-comment-form-container").find(".comment-form textarea").val("");
+  });
+
+  $("#answer-container").on("submit", ".comment-form", function(e) {
+    e.preventDefault();
+    var request = $.ajax({
+      url: this.action,
+      method: "POST",
+      data: $(this).serialize()
+    });
+    request.done( function(data) {
+      var selector = "#answer-" + data.id;
+      $(selector + " .answer-comment-container").append(data.html);
+      $(selector + " .comment-form textarea").val("");
+      $(selector + " .answer-comment-form-container").hide();
+      $(selector + " .answer-comment-errors").html("");
+    });
+    request.fail( function(data) {
+      var response = JSON.parse(data.responseText);
+      var selector = "#answer-" + response.id;
+      $(selector + " .answer-comment-errors").html(response.html)
+    });
+  });
 });
