@@ -1,34 +1,36 @@
-<div id="question-comment-<%= comment.id %>">
-  <p>
-    <div class='question-comment-text'>
-      <%= comment.text %>
+<div class="comment clear" id="question-comment-<%= comment.id %>">
+  <div>
+    <p>
+      <div class='clear question-comment-text'>
+        <%= comment.text %>
+      </div>
+    </p>
+    <div class="points question-comment-points">
+      Points: <%= comment.votes.where(upvote: 'true').count - comment.votes.where(upvote: 'false').count %>
     </div>
-  </p>
-  <div class="question-comment-points">
-    Points: <%= comment.votes.where(upvote: 'true').count - comment.votes.where(upvote: 'false').count %>
+
+    <% if session[:user_id] != nil %>
+      <form class='question-comment-upvotes vote' method="post" action='/votes'>
+        <input type='hidden' name='voteable_type' value='comment' />
+        <input type='hidden' name='voteable_id' value=<%= comment.id %> />
+        <input type='hidden' name='upvote' value='true' />
+        <input type='hidden' name='question_page' value=<%= @question.id %> />
+        <input type="submit" name="upvote-question-comment" value="Upvote" class="button"/>
+      </form>
+
+      <form class='question-comment-downvotes vote' method="post" action='/votes'>
+        <input type='hidden' name='voteable_type' value='comment' />
+        <input type='hidden' name='voteable_id' value=<%= comment.id %> />
+        <input type='hidden' name='upvote' value='false' />
+        <input type='hidden' name='question_page' value=<%= @question.id %> />
+        <input type="submit" name="downvote-question-comment" value="Downvote" class="button"/>
+      </form>
+    <% end %>
   </div>
-
-  <% if session[:user_id] != nil %>
-    <form class='question-comment-upvotes' method="post" action='/votes'>
-      <input type='hidden' name='voteable_type' value='comment' />
-      <input type='hidden' name='voteable_id' value=<%= comment.id %> />
-      <input type='hidden' name='upvote' value='true' />
-      <input type='hidden' name='question_page' value=<%= @question.id %> />
-      <input type="submit" name="upvote-question-comment" value="Upvote comment" ></button>
-    </form>
-
-    <form class='question-comment-downvotes' method="post" action='/votes'>
-      <input type='hidden' name='voteable_type' value='comment' />
-      <input type='hidden' name='voteable_id' value=<%= comment.id %> />
-      <input type='hidden' name='upvote' value='false' />
-      <input type='hidden' name='question_page' value=<%= @question.id %> />
-      <input type="submit" name="downvote-question-comment" value="Downvote comment" ></button>
-    </form>
-  <% end %>
-
   <p>
-    <div class='question-comment-author'>
+    <div class='author question-comment-author'>
       Author: <%= comment.user.username %>
     </div>
   </p>
+  <div class="clear"></div>
 </div>

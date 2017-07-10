@@ -6,9 +6,8 @@
 
 </div>
 
-
-<div class='ask-question-button'>
-  <% if session[:user_id] != nil %>
-  <a class='ask-question-button' href="/questions/new">Ask a Kwestion</a>
-  <% end %>
-</div>
+<% if session[:user_id] != nil %>
+  <div class='ask-question-button-container max-w-700 center'>
+    <a class='ask-question-button' href="/questions/new">Ask a Kwestion</a>
+  </div>
+<% end %>

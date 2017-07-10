@@ -1,34 +1,38 @@
 <h2> <%= @question.title %> </h2>
-<p><%= @question.text %></p>
+<p class='description'><%= @question.text %></p>
 
 <div id="question-points">
   Points: <%= @question.votes.where(upvote: 'true').count - @question.votes.where(upvote: 'false').count %>
 </div>
 
 <% if session[:user_id] != nil %>
-<form id='question-upvotes' method="post" action='/votes'>
+<form id='question-upvotes' class="vote" method="post" action='/votes'>
   <input type='hidden' name='voteable_type' value='question' />
   <input type='hidden' name='voteable_id' value=<%= @question.id %> />
   <input type='hidden' name='upvote' value='true' />
   <input type='hidden' name='question_page' value=<%= @question.id %> />
-  <input type="submit" name="upvote-question" value="Upvote question" ></button>
+  <input type="submit" name="upvote-question" value="Upvote" class="button"/>
 </form>
 
-<form id='question-downvotes' method="post" action='/votes'>
+<form id='question-downvotes' class="vote" method="post" action='/votes'>
   <input type='hidden' name='voteable_type' value='question' />
   <input type='hidden' name='voteable_id' value=<%= @question.id %> />
   <input type='hidden' name='upvote' value='false' />
   <input type='hidden' name='question_page' value=<%= @question.id %> />
-  <input type="submit" name="downvote-question" value="Downvote question" ></button>
+  <input type="submit" name="downvote-question" value="Downvote" class="button"/>
 </form>
 <% end %>
 
-<p>
-  Question Author: <%= @question.user.username %>
-</p>
+<div class='author'>
+    Author: <%= @question.user.username %>
+</div>
+
+<hr />
 
 <div id="question-comment-container">
-  Question Comments:
+  <div class="clear heading">
+    Question Comments:
+  </div>
   <% @question_comments.each do |comment|  %>
     <%= erb :'/comments/_question_comment', layout: false, locals: { comment: comment } %>
   <% end %>
@@ -36,27 +40,31 @@
 
 <% if session[:user_id] %>
   <div id="new-question-comment-container">
-    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Comment on this question</a>
-    <div id="question-comment-errors"></div>
-    <div id="question-comment-form-container" hidden="true">
-      <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "question", commentable_id: @question.id } %>
+    <div  class="comment">
+      <div id="question-comment-errors"></div>
+      <div id="question-comment-form-container" hidden="true">
+        <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "question", commentable_id: @question.id } %>
+      </div>
     </div>
+    <a href="/comments/new?commentable_type=question&commentable_id=<%= @question.id %>">Comment on this question</a>
   </div>
 <% end %>
 
 <div id="answer-container">
+<div class='clear heading'>
   Answers:
+</div>
   <% @answers.each do |answer| %>
     <%= erb :"answers/_answer", layout: false, locals: { answer: answer} %>
   <% end %>
 </div>
 
 <% if session[:user_id] %>
-  <div id="new-answer-container">
-    <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
+  <div id="new-answer-container" class="max-w-700 center">
     <div id="answer-errors"></div>
     <div id="answer-form-container" hidden="true">
       <%= erb :"/answers/_form", layout: false %>
     </div>
+    <h3><a href="/questions/<%= @question.id %>/answers/new">Add an Answer</a></h3>
   </div>
 <% end %>

@@ -11,7 +11,7 @@ $(document).ready(function() {
       url: url,
       type: 'GET',
       success: function(response){
-        $('#question-container').append(response);
+        $('.ask-question-button-container').prepend(response);
       }
     });
   });
@@ -110,9 +110,9 @@ $(document).ready(function() {
 
   $("#answer-container").on("click", ".new-answer-comment-container a", function(e) {
     e.preventDefault();
-    $(this).siblings(".answer-comment-form-container").toggle();
-    $(this).siblings(".answer-comment-errors").html("");
-    $(this).siblings(".answer-comment-form-container").find(".comment-form textarea").val("");
+    $(this).parent().find(".answer-comment-form-container").toggle();
+    $(this).parent().find(".answer-comment-errors").html("");
+    $(this).parent().find(".comment-form textarea").val("");
   });
 
   $("#answer-container").on("submit", ".comment-form", function(e) {

@@ -2,7 +2,7 @@ enable :sessions
 
 
 get '/sessions/new' do
-  erb :'/sessions/new', layout: false
+  erb :'/sessions/new'
 end
 
 

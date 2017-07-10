@@ -1,5 +1,5 @@
 <div id="answer-<%= answer.id %>">
-  <div class='is-the-best'>
+  <div class='clear is-the-best'>
   <% if @question.best_answer == answer %>
   <h1>I'm the best!</h1>
   <% end %>
@@ -7,42 +7,42 @@
 
 
   <div class='answer-info'>
-    <p>
+    <p class='clear'>
       <%= answer.text %>
     </p>
-    <div class="answer-points">
+    <div class="points answer-points">
       Points: <%= answer.votes.where(upvote: 'true').count - answer.votes.where(upvote: 'false').count %>
     </div>
-    
+
     <% if session[:user_id] != nil %>
-      <form class='answer-upvotes' method="post" action='/votes'>
+      <form class='answer-upvotes vote' method="post" action='/votes'>
         <input type='hidden' name='voteable_type' value='answer' />
         <input type='hidden' name='voteable_id' value=<%= answer.id %> />
         <input type='hidden' name='upvote' value='true' />
         <input type='hidden' name='question_page' value=<%= @question.id %> />
-        <input type="submit" name="upvote-answer" value="Upvote answer" ></button>
+        <input type="submit" name="upvote-answer" value="Upvote" class="button" >
       </form>
 
-      <form class='answer-downvotes' method="post" action='/votes'>
+      <form class='answer-downvotes vote' method="post" action='/votes'>
         <input type='hidden' name='voteable_type' value='answer' />
         <input type='hidden' name='voteable_id' value=<%= answer.id %> />
         <input type='hidden' name='upvote' value='false' />
         <input type='hidden' name='question_page' value=<%= @question.id %> />
-        <input type="submit" name="downvote-answer" value="Downvote answer" ></button>
+        <input type="submit" name="downvote-answer" value="Downvote" class="button">
       </form>
     <% end %>
     <% if session[:user_id] == @question.user_id %>
-      <form id='choose-best-answer' method="post" action='/questions/<%= @question.id %>'>
+      <form id='choose-best-answer' class="vote" method="post" action='/questions/<%= @question.id %>'>
         <input type='hidden' name='_method' value="PUT" />
         <input type='hidden' name="answer_id" value=<%= answer.id %> />
-        <input type="submit" name='submit-best' value="The Best!" />
+        <input type="submit" name='submit-best' value="The Best!" class="button"/>
       </form>
     <% end %>
     <p>
-      <div id='answer-author'> Answer Author: <%= answer.user.username %>
+      <div class='author' id='answer-author'> Author: <%= answer.user.username %>
       </div>
     </p>
-    Answer Comments:
+
     <div class="answer-comment-container">
       <% answer.comments.each do |comment| %>
         <%= erb :'comments/_answer_comment', layout: false, locals: { comment: comment} %>
@@ -51,11 +51,15 @@
 
     <% if session[:user_id] %>
       <div class="new-answer-comment-container">
-        <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
-        <div class="answer-comment-errors"></div>
-        <div class="answer-comment-form-container" hidden="true">
-          <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "answer", commentable_id: answer.id } %>
+        <div class="comment">
+          <div class="answer-comment-errors"></div>
+          <div class="answer-comment-form-container" hidden="true">
+            <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "answer", commentable_id: answer.id } %>
+          </div>
         </div>
+        <div class="clear">
+          <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
+      </div>
       </div>
     <% end %>
   </div>
