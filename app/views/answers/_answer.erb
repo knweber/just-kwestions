@@ -57,7 +57,9 @@
             <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "answer", commentable_id: answer.id } %>
           </div>
         </div>
-        <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
+        <div class="clear">
+          <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
+      </div>
       </div>
     <% end %>
   </div>
