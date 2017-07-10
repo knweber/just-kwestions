@@ -23,3 +23,15 @@ end
 
   Comment.create(text: Faker::Hipster.sentence, user_id: User.all.sample.id, commentable_id: Answer.all.sample.id, commentable_type: "Answer")
 end
+
+User.all.each do |user|
+  Question.all.each do |question|
+    question.votes.create(user_id: user.id, upvote: rand(2) == 0)
+  end
+  Answer.all.each do |answer|
+    answer.votes.create(user_id: user.id, upvote: rand(2) == 0)
+  end
+  Comment.all.each do |comment|
+    comment.votes.create(user_id: user.id, upvote: rand(2) == 0)
+  end
+end
