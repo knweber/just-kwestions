@@ -18,23 +18,33 @@
   <title>Just Kwestions</title>
 </head>
 <body>
-  <form action='/' method='get'>
-     <input type='submit' value='Home' />
-   </form>
-   <% if session[:user_id] != nil %>
-     <form action='/sessions/1' method='post'>
-       <input type='hidden' name='_method' value='delete' />
-       <input type='submit' value='Log out' />
-     </form>
-   <% else %>
-   <form action='/users/new' method='get'>
-     <input type='submit' value='Register' />
-   </form>
-   <form action='/sessions/new' method='get'>
-     <input type='submit' value='Sign in' />
-   </form>
-   <% end %>
-  <%= yield %>
+
+
+  <header role="banner" class="mar-t-5 pad-t-2 pad-b-4 pad-s-1 wrap-float bg-white">
+      <div class="max-w-700 center wrap-float">
+        <nav class="clearfix mar-b-1">
+          <ul class="no-bullets no-margin no-padding right">
+            <li class="pipe-separate t-light-green left"><form action="/" method='GET'><input type='submit' value='home'></form></li>
+            <% if session[:user_id] %>
+              <li class="pipe-separate t-light-green left"><form action="/sessions/1" method='POST'><input type='hidden' name='_method' value='delete'/><input type='submit' value='logout'></form></li>
+            <% else %>
+              <li class="pipe-separate t-light-green left"><form action="/users/new" method='GET'><input type='submit' value='sign up'></form></li>
+              <li class="pipe-separate t-light-green left"><form action="/sessions/new" method='GET'><input type='submit' value='login'></form></li>
+            <% end %>
+          </ul>
+        </nav>
+
+        <div class="logo-container">
+          <h1>Just Kwestions</h1>
+        </div>
+      </div>
+    </header>
+
+    <div class="bg-dk-green pad-t-2 pad-s-1 pad-b-8 mar-b-16 c-white">
+      <div class="max-w-700 center">
+        <%= yield %>
+      </div>
+    </div>
 
 </body>
 </html>
