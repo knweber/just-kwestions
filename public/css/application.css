@@ -63,6 +63,8 @@ a {
   text-decoration: none;
 }
 
+
+
   a:hover {
     color: #6ec7a5;
     text-decoration: underline;
@@ -81,6 +83,8 @@ input[type=text], input[type=password], textarea {
 .center {
   margin: 0 auto;
 }
+
+
 
 .inline {
   display: inline;
@@ -322,6 +326,30 @@ input[type=text], input[type=password], textarea {
   text-align: center;*/
 }
 
-/*.logo {
-  width:160px;
-}*/
+.author {
+  margin-bottom: 10px;
+  font-size: .75em;
+  float: right;
+  /*padding-top: -5px;*/
+}
+
+.description {
+  height: 50px;
+  padding: 5px;
+  color: #05724f;
+  background-color: white;
+  border: 1px solid grey
+}
+
+hr {
+  margin-top: 30px;
+  clear: both;
+  border-top: 1px solid #8c8b8b;
+}
+
+#question-points {
+  margin-bottom: 10px;
+  font-size: .75em;
+  display: inline;
+  float: left;
+}

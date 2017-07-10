@@ -1,5 +1,5 @@
 <h2> <%= @question.title %> </h2>
-<p><%= @question.text %></p>
+<p class='description'><%= @question.text %></p>
 
 <div id="question-points">
   Points: <%= @question.votes.where(upvote: 'true').count - @question.votes.where(upvote: 'false').count %>
@@ -23,9 +23,11 @@
 </form>
 <% end %>
 
-<p>
-  Question Author: <%= @question.user.username %>
-</p>
+<div class='author'>
+    Question Author: <%= @question.user.username %>
+</div>
+
+<hr />
 
 <div id="question-comment-container">
   Question Comments:
