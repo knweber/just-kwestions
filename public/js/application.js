@@ -134,4 +134,16 @@ $(document).ready(function() {
       $(selector + " .answer-comment-errors").html(response.html)
     });
   });
+
+  $("#question-upvotes, #question-downvotes").on('submit', function(e) {
+    e.preventDefault();
+    var request = $.ajax({
+      url: this.action,
+      method: "POST",
+      data: $(this).serialize()
+    });
+    request.done( function(data) {
+      $("#question-points").html(data);
+    });
+  });
 });
