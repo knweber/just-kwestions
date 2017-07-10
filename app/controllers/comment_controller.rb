@@ -40,7 +40,12 @@ post '/comments' do
       end
     else
       if request.xhr?
-        # todo
+        @question = commentable.question
+        content_type :json
+        {
+          id: commentable.id,
+          html: (erb :"comments/_answer_comment", layout: false, locals: { comment: comment })
+        }.to_json
       else
         redirect "/questions/#{commentable.question.id}"
       end
@@ -48,7 +53,15 @@ post '/comments' do
   else
     status 422
     if request.xhr?
-      erb :_errors, layout: false, locals: { errors: comment.errors.full_messages }
+      if params[:commentable_type] == 'answer'
+        content_type :json
+        {
+          id: commentable.id,
+          html: (erb :_errors, layout: false, locals: { errors: comment.errors.full_messages })
+        }.to_json
+      else
+        erb :_errors, layout: false, locals: { errors: comment.errors.full_messages }
+      end
     else
       erb :'comments/new', locals: { action: "comments", errors: comment.errors.full_messages, commentable_type: params[:commentable_type], commentable_id: params[:commentable_id]}
     end
