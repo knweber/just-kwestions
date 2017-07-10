@@ -32,10 +32,9 @@ post '/questions/:question_id/answers' do
   end
 end
 
-put '/questions/:question_id/answers/:id' do
-  @question = Question.find(params[:question_id])
-  answer = Answer.find(params[:id])
-  if request.xhr?
-    erb :'answers/_answer', locals: { answer: answer }
-  end
-end
+# put '/questions/:id' do
+#   @question = Question.find(params[:question_id])
+#   answer = Answer.find(params[:id])
+#
+#   erb :'answers/_answer', locals: { answer: answer }
+# end

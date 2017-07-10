@@ -68,19 +68,21 @@ $(document).ready(function() {
 
   // Select best answer
 
-  $('body').on('submit', '#choose-best-answer' function(event){
+  $('body').on('submit', '#choose-best-answer', function(event){
     event.preventDefault();
     var url = $('#choose-best-answer').attr('action');
 
     $.ajax({
       url: url,
       method: 'PUT',
+      data: $('#choose-best-answer').serialize(),
       success: function(response){
-
+        console.log(response);
+        var selector = "#answer-" + response.id;
+        $(".is-the-best").append(response.html);
       }
-
     })
-  })
+  });
 
   $("#new-answer-container a").on("click", function(e) {
     e.preventDefault();
