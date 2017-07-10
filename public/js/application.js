@@ -76,9 +76,8 @@ $(document).ready(function() {
       method: 'PUT',
       data: $('#choose-best-answer').serialize(),
       success: function(response){
-        console.log(response);
         var selector = "#answer-" + response.id;
-        $(".is-the-best").append(response.html);
+        $(selector + " .is-the-best").html(response.html);
       }
     })
   });
