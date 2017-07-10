@@ -74,8 +74,9 @@ $(document).ready(function() {
     $.ajax({
       url: url,
       method: 'PUT',
-      data: $('#choose-best-answer').serialize(),
+      data: $(this).serialize(),
       success: function(response){
+        $(".is-the-best").html("");
         var selector = "#answer-" + response.id;
         $(selector + " .is-the-best").html(response.html);
       }
