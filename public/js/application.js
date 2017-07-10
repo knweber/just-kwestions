@@ -160,4 +160,30 @@ $(document).ready(function() {
       $(selector + " .answer-points").html(data.html);
     });
   });
+
+  $("#question-comment-container").on("submit", ".question-comment-upvotes, .question-comment-downvotes", function(e) {
+    e.preventDefault();
+    var request = $.ajax({
+      url: this.action,
+      method: "POST",
+      data: $(this).serialize()
+    });
+    request.done( function(data) {
+      var selector = "#question-comment-" + data.id;
+      $(selector + " .question-comment-points").html(data.html);
+    });
+  });
+
+  $("#answer-container").on("submit", ".answer-comment-upvotes, .answer-comment-downvotes", function(e) {
+    e.preventDefault();
+    var request = $.ajax({
+      url: this.action,
+      method: "POST",
+      data: $(this).serialize()
+    });
+    request.done( function(data) {
+      var selector = "#answer-comment-" + data.id;
+      $(selector + " .answer-comment-points").html(data.html);
+    });
+  });
 });
