@@ -10,11 +10,12 @@
     <p>
       <%= answer.text %>
     </p>
-    <span># of upvotes: <%= answer.votes.where(upvote: 'true').count %></span>
-    <span># of downvotes: <%= answer.votes.where(upvote: 'false').count %></span>
-
+    <div class="answer-points">
+      Points: <%= answer.votes.where(upvote: 'true').count - answer.votes.where(upvote: 'false').count %>
+    </div>
+    
     <% if session[:user_id] != nil %>
-      <form id='answer-upvotes' method="post" action='/votes'>
+      <form class='answer-upvotes' method="post" action='/votes'>
         <input type='hidden' name='voteable_type' value='answer' />
         <input type='hidden' name='voteable_id' value=<%= answer.id %> />
         <input type='hidden' name='upvote' value='true' />
@@ -22,7 +23,7 @@
         <input type="submit" name="upvote-answer" value="Upvote answer" ></button>
       </form>
 
-      <form id='answer-downvotes' method="post" action='/votes'>
+      <form class='answer-downvotes' method="post" action='/votes'>
         <input type='hidden' name='voteable_type' value='answer' />
         <input type='hidden' name='voteable_id' value=<%= answer.id %> />
         <input type='hidden' name='upvote' value='false' />

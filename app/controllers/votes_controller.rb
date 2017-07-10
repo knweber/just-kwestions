@@ -16,7 +16,16 @@ post '/votes' do
     end
 
     if request.xhr?
-      return "Points: #{voteable.votes.where(upvote: 'true').count - voteable.votes.where(upvote: 'false').count}"
+      html = "Points: #{voteable.votes.where(upvote: 'true').count - voteable.votes.where(upvote: 'false').count}"
+      if params[:voteable_type] != 'question'
+        content_type :json
+        return {
+          id: voteable.id,
+          html: html
+        }.to_json
+      else
+        return html
+      end
     end
   end
   redirect "/questions/#{params[:question_page]}"

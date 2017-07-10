@@ -147,4 +147,17 @@ $(document).ready(function() {
       $("#question-points").html(data);
     });
   });
+
+  $("#answer-container").on("submit", ".answer-upvotes, .answer-downvotes", function(e) {
+    e.preventDefault();
+    var request = $.ajax({
+      url: this.action,
+      method: "POST",
+      data: $(this).serialize()
+    });
+    request.done( function(data) {
+      var selector = "#answer-" + data.id;
+      $(selector + " .answer-points").html(data.html);
+    });
+  });
 });
