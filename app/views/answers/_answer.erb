@@ -39,7 +39,7 @@
       </form>
     <% end %>
     <p>
-      <div class='author' id='answer-author'> Answer Author: <%= answer.user.username %>
+      <div class='author' id='answer-author'> Author: <%= answer.user.username %>
       </div>
     </p>
 
@@ -51,11 +51,13 @@
 
     <% if session[:user_id] %>
       <div class="new-answer-comment-container">
-        <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
-        <div class="answer-comment-errors"></div>
-        <div class="answer-comment-form-container" hidden="true">
-          <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "answer", commentable_id: answer.id } %>
+        <div class="comment">
+          <div class="answer-comment-errors"></div>
+          <div class="answer-comment-form-container" hidden="true">
+            <%= erb :"/comments/_form", layout: false, locals: { action: "comments", commentable_type: "answer", commentable_id: answer.id } %>
+          </div>
         </div>
+        <a href="/comments/new?commentable_type=answer&commentable_id=<%= answer.id %>">Comment on this answer</a>
       </div>
     <% end %>
   </div>

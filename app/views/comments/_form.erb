@@ -1,7 +1,11 @@
 <form class='comment-form' action='/<%= action %>' method='post'>
-  <textarea class='comment-text' name='text' placeholder='Type your comment...'></textarea>
-  <input type='hidden' name='commentable_type' value=<%= commentable_type %> />
-  <input type='hidden' name='commentable_id' value=<%= commentable_id %> />
-  <p></p>
-  <input id='submit' type='submit' value='comment' />
+  <p>
+    <textarea class='comment-text' name='text' placeholder='Type your comment...'></textarea>
+    <input type='hidden' name='commentable_type' value=<%= commentable_type %> />
+    <input type='hidden' name='commentable_id' value=<%= commentable_id %> />
+  </p>
+  <p>
+    <input id='submit' type='submit' value='comment' class="button right"/>
+  </p>
+  <div class="clear"></div>
 </form>

@@ -1,5 +1,5 @@
 <form id='answer-form' action='/questions/<%= @question.id %>/answers' method="POST">
-  <textarea name='answer[text]' placeholder='Add an Answer'></textarea>
+  <textarea name='answer[text]' placeholder='Add an Answer' class="comment-text"></textarea>
   <input type='hidden' name='answer[question_id]' value='<%= @question.id %>'>
-  <input type='submit' name='submit' value='Post Answer' />
+  <input type='submit' name='submit' value='Post Answer' class="button"/>
 </form>

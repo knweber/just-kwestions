@@ -386,7 +386,7 @@ hr {
   float: left;
 }
 
-.ask-question-button-container {
+.ask-question-button-container, #new-answer-container {
   width: 100%;
   min-height: 40px;
   bottom: 0px;
@@ -401,6 +401,10 @@ hr {
   color: white;
 }
 
-#title, #text {
+#title, #text, .comment-text {
   width: 600px;
+}
+
+.comment-form {
+  padding: 10px;
 }
